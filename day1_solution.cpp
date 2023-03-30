@@ -7,6 +7,7 @@
 #include "unordered_set"
 #include "string"
 #include <cmath>
+#include "stack"
 
 using namespace std;
 
@@ -98,6 +99,38 @@ int lengthOfLongestSubstring(string s) {
     return ans;
 }
 
+ListNode* EntryNodeOfLoop(ListNode* head) {
+    set<ListNode*> sets;
+    while(head) {
+        if (sets.count(head)) {
+            return head;
+        }
+        sets.insert(head);
+        head = head -> next;
+    }
+    return nullptr;
+}
+
+ListNode* recursiveNode(ListNode* pHead, int k, int cur){
+
+}
+ListNode* findKthToTai(ListNode* pHead, int k) {
+    stack<ListNode*> sta ;
+    int len = 0;
+    while(pHead){
+        sta.push(pHead);
+        pHead = pHead -> next;
+        len++;
+    }
+    if (len <= k || k == 0 ) return nullptr;
+    int i= 0;
+    ListNode* res;
+    while(i < k) {
+        sta.pop();
+        i++;
+    }
+    return sta.top();
+}
 int lengthOfLongestSubString(string s) {
     unordered_set<char> set;
     int len = s.size();
@@ -256,13 +289,14 @@ string addBinary(string a, string b) {
 }
 int main() {
 
-//    string num = "12345";
-//    stringToNumber(num);
-//    string res = multiply("123456789","987654321");
-//    cout << res << endl;
+    ListNode* p = new ListNode(1);
+    p -> next = new ListNode(2);
+    p -> next -> next = new ListNode(3);
+    ListNode* cross = p -> next->next;
+    cross -> next = new ListNode(4);
+    cross -> next -> next = new ListNode(5);
+    cross -> next -> next -> next = cross;
 
-    string res =  addString("1","9");
-    cout << res << endl;
-//    string a = "1234";
-//    cout << a[3] << endl;
+    EntryNodeOfLoop(p);
+
 }
