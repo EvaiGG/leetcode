@@ -7,6 +7,7 @@
 #include "stack"
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 #include "math.h"
 #include "algorithm"
 
@@ -105,6 +106,57 @@ int minScoreTriangulation(vector<int> & values){
     int res = dp(0,n-1);
     return res;
 }
+
+int countCharacters(vector<string>& words, string chars) {
+    std::unordered_map<char, int> chars_cnt;
+    for (const auto &item : chars){
+        chars_cnt[item]++;
+    }
+    int ans = 0;
+    for (const auto &word : words){
+        std::unordered_map<char, int> word_cnt;
+        for (const auto &item : word){
+            word_cnt[item] ++;
+        }
+
+        bool is_true = true;
+        for (const auto &item : word){
+            if(chars_cnt[item] > word_cnt[item]){
+                is_true = false;
+                break;
+            }
+        }
+        if(is_true) {
+            ans += word.size();
+        }
+    }
+    return ans;
+}
+
+void swap(vector<int> & arr,int i,int j) {
+    cout << "arr[" << i << "] = "<< arr[i] << endl;
+    cout << "arr[" << j << "] =" << arr[j] << endl;
+    int tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] =tmp;
+}
+vector<int> prevPermOpt1(vector<int>& arr) {
+   int n = arr.size();
+    int i;
+    int j;
+
+    for ( i = n-2; i >=0 ; i--) {
+        if( arr[i] > arr[i+1]) {
+            j = n-1;
+            while(arr[j] >= arr[i] || arr[j] == arr[j-1])
+                j--;
+            swap(arr, i, j);
+            return arr;
+        }
+    }
+    cout<< i<< endl;
+    return arr;
+}
 int main() {
 
 
@@ -124,6 +176,23 @@ int main() {
 //    cout << v[1][0] << endl;
 //    cout << v[0][1] << endl;
 
-    vector<int> v = {1,3,1,4,15};
-    minScoreTriangulation(v);
+//    vector<int> v = {1,3,1,4,15};
+//    minScoreTriangulation(v);
+
+//    vector<std::string> s = {
+//            "cat",
+//            "bt",
+//            "hat",
+//            "tree"
+//    };
+//    std::string chars = "atach";
+//    int count = countCharacters(s, chars);
+//    cout << count << endl;
+
+    vector<int> intV = {3,1,1,3};
+    vector<int> res = prevPermOpt1(intV);
+    for (const auto &item : res) {
+        cout << item << "\t";
+    }
+    cout << "lanhua" << endl;
 }
