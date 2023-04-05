@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "iostream"
 #include <vector>
+#include "numeric"
 
 using namespace std;
 class day4_solution{
@@ -48,7 +49,47 @@ public:
         return res;
     }
 
+    // 公因数数量
+    int commonFactors(int a, int b) {
+        int m_value = min(a, b);
+        vector<int> v;
+        for (int i = 1; i < m_value; ++i) {
+            if ((a % i == 0) && (b %i == 0))
+                v.push_back(i);
+        }
 
+// 最大公约数 mV 解法
+//        int size = 0;
+//
+//        int mV = gcd(a, b);
+//        for (int i = 1; i*i <= mV; ++i) {
+//            if(mV % i == 0) {
+//              size++;
+//                    if(i *i != mV){ ++size;}
+//            }
+//        }
+//        return size;
+        cout << "ok" << endl;
+        return v.size();
+    }
+
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res;
+
+        for (int i = 0; i < numRows; ++i) {
+            vector<int> childV = vector(i+1, 1);
+            res.push_back(childV);
+        }
+        if (numRows <= 2) return res;
+        for (int i = 2; i < numRows; ++i) {
+            int childSize =  res[i].size();
+            for (int j = 1; j < childSize -1 ; ++j) {
+                res[i][j] = res[i-1][j] +  res[i-1][j-1];
+            }
+        }
+        cout << "df" << endl;
+        return res;
+    }
 };
 
 
@@ -57,7 +98,6 @@ public:
 
 int main() {
     day4_solution solution;
-    vector<int> v = {3,5,1,2,6};
-    int res = solution.mergeStones(v, 3 );
-    cout << res << endl;
+
+    solution.generate(6);
 }
