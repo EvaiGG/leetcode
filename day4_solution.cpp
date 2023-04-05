@@ -7,6 +7,12 @@
 #include <vector>
 #include "numeric"
 
+
+static const auto io_sync_off = [](){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    return nullptr;
+};
 using namespace std;
 class day4_solution{
     static constexpr int inf = 0x3f3f3f3f;
