@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/tony/CLionProjects/C++/leetcode/main.cpp
+iostream
+-
+stack
+/Users/tony/CLionProjects/C++/leetcode/stack
+
