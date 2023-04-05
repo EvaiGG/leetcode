@@ -72,7 +72,7 @@ public:
         cout << "ok" << endl;
         return v.size();
     }
-
+    // 119 杨辉三角
     vector<vector<int>> generate(int numRows) {
         vector<vector<int>> res;
 
@@ -89,6 +89,45 @@ public:
         }
         cout << "df" << endl;
         return res;
+    }
+
+    // 120 杨辉三角
+    vector<int> getRow(int rowIndex) {
+        vector<vector<int>> res(rowIndex +1);
+
+        for (int i = 0; i < rowIndex; ++i) {
+            res[i].resize(i+2);
+            res[i][0] = res[i][i] = 1;
+            for (int j = 1; j < i ; ++j) {
+                res[i][j] = res[i-1][j-1] + res[i-1][j];
+            }
+        }
+        return res[rowIndex];
+    }
+
+
+    vector<vector<int>> combinationSum1(vector<int>& candidates, int target) {
+        vector<vector<int>> res;
+        vector<int> combination;
+        combinationSum1Dfs(candidates, res, combination, target, 0);
+        return res;
+    }
+
+    void combinationSum1Dfs(vector<int> & candidates, vector<vector<int>> & res,vector<int> combination,  int target, int idx ) {
+        if (idx == candidates.size()) return;
+        if (target == 0) {
+            res.emplace_back(combination);
+            return;
+        }
+        combinationSum1Dfs(candidates, res, combination, target, idx+1);
+        if (target >= candidates[idx]) {
+            combination.emplace_back(candidates[idx]);
+            combinationSum1Dfs(candidates, res, combination, target - candidates[idx], idx);
+            combination.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+
     }
 };
 
