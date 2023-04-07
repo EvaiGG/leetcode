@@ -129,29 +129,29 @@ leetcode/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/build
 .PHONY : leetcode/fast
 
-day4_solution.o: day4_solution.cpp.o
-.PHONY : day4_solution.o
+day5_solution.o: day5_solution.cpp.o
+.PHONY : day5_solution.o
 
 # target to build an object file
-day4_solution.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day4_solution.cpp.o
-.PHONY : day4_solution.cpp.o
+day5_solution.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day5_solution.cpp.o
+.PHONY : day5_solution.cpp.o
 
-day4_solution.i: day4_solution.cpp.i
-.PHONY : day4_solution.i
+day5_solution.i: day5_solution.cpp.i
+.PHONY : day5_solution.i
 
 # target to preprocess a source file
-day4_solution.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day4_solution.cpp.i
-.PHONY : day4_solution.cpp.i
+day5_solution.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day5_solution.cpp.i
+.PHONY : day5_solution.cpp.i
 
-day4_solution.s: day4_solution.cpp.s
-.PHONY : day4_solution.s
+day5_solution.s: day5_solution.cpp.s
+.PHONY : day5_solution.s
 
 # target to generate assembly for a file
-day4_solution.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day4_solution.cpp.s
-.PHONY : day4_solution.cpp.s
+day5_solution.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leetcode.dir/build.make CMakeFiles/leetcode.dir/day5_solution.cpp.s
+.PHONY : day5_solution.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... leetcode"
-	@echo "... day4_solution.o"
-	@echo "... day4_solution.i"
-	@echo "... day4_solution.s"
+	@echo "... day5_solution.o"
+	@echo "... day5_solution.i"
+	@echo "... day5_solution.s"
 .PHONY : help
 
 

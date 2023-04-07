@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/tony/CLionProjects/C++/leetcode/main.cpp
+/Users/tony/CLionProjects/C++/leetcode/day5_solution.cpp
+string
+/Users/tony/CLionProjects/C++/leetcode/string
 iostream
--
-stack
-/Users/tony/CLionProjects/C++/leetcode/stack
+/Users/tony/CLionProjects/C++/leetcode/iostream
+vector
+/Users/tony/CLionProjects/C++/leetcode/vector
 
