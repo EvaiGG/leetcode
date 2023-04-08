@@ -7,7 +7,16 @@
 #include "vector"
 
 using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
 class day5_solution{
+
 
 public:
     string baseNeg2(int n){
@@ -45,12 +54,30 @@ public:
         }
         return {mi, ma};
     }
+
+    // 83
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *dummy  = new ListNode;
+        ListNode *res = dummy;
+        dummy->next = head;
+        while(dummy->next != nullptr) {
+            ListNode *tmp = dummy->next;
+            while(tmp->next != nullptr && tmp->next->val == tmp->val) {
+                tmp = tmp->next;
+            }
+            dummy ->next = tmp;
+            dummy = dummy->next;
+        }
+        return res->next;
+    }
 };
 
 
 
 int main() {
-    day5_solution *solution = new day5_solution;
-    string res = solution->baseNeg2(9);
-    cout << res << endl;
+//    day5_solution *solution = new day5_solution;
+//    string res = solution->baseNeg2(9);
+//    cout << res << endl;
+
+
 }
