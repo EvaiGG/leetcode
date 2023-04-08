@@ -157,6 +157,22 @@ vector<int> prevPermOpt1(vector<int>& arr) {
     cout<< i<< endl;
     return arr;
 }
+
+/**
+ * f(x) = x*2 -a; a 既参数x
+ * 牛顿迭代法求根号， 随机选中一个值C 作为初始点 利用斜率的直线方程得到下一个点xi 迭代这一过程 知道两个点之间的gap小于误差范围 可以判定结果
+ * @param x
+ * @return
+ */
+int mySqrt(int x) {
+    if (x == 0) return 0;
+    double x0 = x, C = x;
+    while (true) {
+        double xi = 0.5*(x0 + C/x0);
+        if (fabs(x0 - xi) < 1e-7) break;
+    }
+    return (int) x0;
+}
 int main() {
 
 
