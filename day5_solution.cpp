@@ -91,6 +91,12 @@ public:
         if (root == nullptr) return 0;
         return max(maxDep(root->left) , maxDep(root->right))+1;
     }
+
+    bool isSameTree(Node *p, Node *q) {
+        if(p == nullptr && q == nullptr) return true;
+        if((p!= nullptr && q == nullptr) || (p == nullptr && q!= nullptr) || p->val != q->val) return false;
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+    }
 };
 
 
