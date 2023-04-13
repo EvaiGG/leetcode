@@ -6,6 +6,8 @@
 #include "string"
 #include "vector"
 #include "algorithm"
+#include "map"
+#include "stack"
 
 using namespace std;
 template<typename t1, typename t2>
@@ -49,6 +51,42 @@ public:
         return grid[height-1][width-1];
 
     }
+
+    //2404
+    int mostFrequentEven(vector<int> &nums) {
+//        sort(nums.begin(),  nums.end());
+        map<int, int> bucket;
+//        if(nums[0] %2 == 0) bucket[nums[0]] = 1;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] %2 == 0 ) {
+                bucket[nums[i]] +=1;
+            }
+//            if (nums[i] %2 == 0 && bucket.count(nums[i]) == 0){
+//                bucket[nums[i]] = 1;
+//            }
+        }
+//        std::stack<int> stk;
+//        if (bucket.size() == 0) return -1;
+//        stk.push(bucket[0]);
+//        for (int i = 1; i < bucket.size(); ++i) {
+//            if (bucket[i] >= stk.top()) {
+//                stk.push(bucket[i]);
+//            }
+//        }
+//
+//        int maxV = stk.top();
+//        for (const auto &item : bucket){
+//            if (item.second == maxV) return item.first;
+//        }
+        int res = -1,ct = 0;
+        for (const auto &item : bucket){
+            if (res == -1 || item.second >ct || item.second == ct && res > item.first) {
+                res = item.first;
+                ct = item.second;
+            }
+        }
+        return res;
+    }
 };
 
 template<typename t1, typename t2>
@@ -63,6 +101,11 @@ int main () {
 //    std::string res = solu.add(solu.first);
 //    std::cout << res << std::endl;
 
-    vector<vector<int>> t = {{1,2,3}, {4,5,6}, {7,8,9}};
-    solu.minPathSum(t);
+//    vector<vector<int>> t = {{1,2,3}, {4,5,6}, {7,8,9}};
+//    solu.minPathSum(t);
+
+//    vector<int> t {0,1,2,2,4,4,1};
+    vector<int> t {29,47,21,41,13,37,25,7};
+    int res = solu.mostFrequentEven(t);
+    cout << res << endl;
 }
