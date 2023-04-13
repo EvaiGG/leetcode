@@ -87,6 +87,32 @@ public:
         }
         return res;
     }
+
+    // 121_maxprofit
+    int maxProfit(vector<int>& prices) {
+        // 暴力超时
+//        vector<int> v;
+//        for(int i =0; i<prices.size()-1; i++) {
+//            int idx = prices[i];
+//            for(int j = i+1; j< prices.size(); j++) {
+//                if(prices[j] > idx){
+//                    idx = prices[j];
+//                }
+//            }
+//            if(idx != prices[i]) v.push_back(idx - prices[i]);
+//        }
+//        if(v.size() == 0) return 0;
+//        sort(v.begin(), v.end());
+//        return v[v.size()-1];
+//      遍历时考虑当日与历史最低价格的受益
+        int inf = 0x3f3f3f3f;
+        int minprice = inf, maxprofix = 0;
+        for (int i = 0; i < prices.size(); ++i) {
+            maxprofix = max(maxprofix,prices[i] - minprice);
+            minprice = min (minprice, prices[i]);
+        }
+        return maxprofix;
+    }
 };
 
 template<typename t1, typename t2>
@@ -105,7 +131,8 @@ int main () {
 //    solu.minPathSum(t);
 
 //    vector<int> t {0,1,2,2,4,4,1};
-    vector<int> t {29,47,21,41,13,37,25,7};
-    int res = solu.mostFrequentEven(t);
+    vector<int> t {7,6,4,3,1};
+//    int res = solu.mostFrequentEven(t);
+    int res = solu.maxProfit(t);
     cout << res << endl;
 }
