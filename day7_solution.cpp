@@ -3,7 +3,7 @@
 //
 #include "iostream"
 #include "vector"
-
+#include "unordered_map"
 using namespace std;
 
 class day7_solution {
@@ -53,6 +53,21 @@ public:
             res[i] = camel(queries[i], pattern);
         }
         return res;
+    }
+    // 169 多数元素
+    int majorityElement(vector<int>& nums) {
+        unordered_map<int, int> map;
+        for (const auto &item : nums){
+            map[item] ++;
+        }
+        int maxIndex = 0, maxCnt = 0;
+        for (const auto &item : map){
+            if (item.second > maxCnt) {
+                maxCnt = item.second;
+                maxIndex = item.first;
+            }
+        }
+        return maxIndex;
     }
 
 };
