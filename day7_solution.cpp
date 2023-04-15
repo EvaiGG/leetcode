@@ -5,6 +5,7 @@
 #include "vector"
 #include "unordered_map"
 #include "stack"
+#include "set"
 
 using namespace std;
 
@@ -110,6 +111,23 @@ public:
         return ans;
     }
 
+    // 1042 邻接表
+    vector<int> gardenNoAdj(int N, vector<vector<int>>& paths) {
+        vector<int> G[N];
+        for (int i = 0; i < paths.size(); ++i) {
+            G[paths[i][0] -1].push_back(paths[i][1] -1);
+            G[paths[i][1] -1].push_back(paths[i][0] -1);
+        }
+        vector<int> ans(N, 0);
+        for (int i = 0; i < N; ++i) {
+            set<int> color{1,2,3,4};
+            for (int j = 0; j < G[i].size(); ++j) {
+                color.erase(ans[G[i][j]]);
+            }
+            ans[i] = *(color.begin());
+        }
+        return ans;
+    }
 
 };
 
@@ -119,6 +137,9 @@ int main() {
 //    bool res = solu->camel("ForceFeedBack", "FoBa");
 //    cout << res << endl;
 
-    string res = solu->convertToTitle(52);
-    cout << res << endl;
+//    string res = solu->convertToTitle(52);
+
+    vector<vector<int>> v {{1,2}, {2,3}, {3,4}, {4, 1}, {1,3}, {2,4}};
+    vector<int> res = solu->gardenNoAdj(4, v);
+
 }
