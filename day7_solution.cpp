@@ -6,6 +6,7 @@
 #include "unordered_map"
 #include "stack"
 #include "set"
+#include "math.h"
 
 using namespace std;
 
@@ -109,6 +110,17 @@ public:
         }
         reverse(ans.begin(), ans.end());
         return ans;
+    }
+
+    // 171
+    int titleToNumber(string columnTitle) {
+        int n = columnTitle.size();
+        int res = 0;
+        for (auto &item : columnTitle){
+            res += (item - 'A' +1)* pow(26, n-- -1);
+//            --n;
+        }
+        return res;
     }
 
     // 1042 邻接表
