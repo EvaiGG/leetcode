@@ -167,6 +167,16 @@ public:
         return res + n*n;
     }
 
+    // 191
+    int hammingWeight(uint32_t n) {
+        int cnt = 0;
+        while(n) {
+            cnt += n %2 == 1? 1:0;
+            n = n/2;
+        }
+        return cnt;
+    }
+
 };
 
 int main() {
