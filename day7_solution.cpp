@@ -4,6 +4,7 @@
 #include "iostream"
 #include "vector"
 #include "unordered_map"
+#include "unordered_set"
 #include "stack"
 #include "set"
 #include "math.h"
@@ -139,6 +140,31 @@ public:
             ans[i] = *(color.begin());
         }
         return ans;
+    }
+
+    //202
+    bool isHappy(int n) {
+        unordered_set<int> myset;
+        while(n!= 1) {
+//            n = nextVal(n);
+            if(!myset.count(n)){
+                myset.insert(n);
+                n = nextVal(n);
+            } else {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    int nextVal(int n) {
+        int res = 0;
+        while(n /10 != 0) {
+            res += pow((n%10),2);
+            n /= 10;
+        }
+        return res + n*n;
     }
 
 };
