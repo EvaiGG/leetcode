@@ -11,6 +11,10 @@ void swapp(int* a, int* b) {
     *a = *b;
     *b = temp;
 }
+
+bool canWinNim(int n) {
+    return n%4 != 0;
+}
 int main() {
 //    int a = 5, b  =9;
 //    swap(a, b);

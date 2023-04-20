@@ -8,6 +8,8 @@
 #include "stack"
 #include "set"
 #include "math.h"
+#include "string"
+#include "ctime"
 
 using namespace std;
 
@@ -175,6 +177,36 @@ public:
             n = n/2;
         }
         return cnt;
+    }
+
+    vector<int> month{0,31,28,31,30,31,30,31,31,30,31,30,31};
+    int countDaysTogether(string arriveAlice, string leaveAlice, string arriveBob, string leaveBob) {
+        int aL = gapDay(arriveAlice), aR = gapDay(leaveAlice);
+        int bL = gapDay(arriveBob), bR = gapDay(leaveBob);
+        if (aL > bL){
+            swap(aL, bL);
+            swap(aR, bR);
+        }
+
+        if (aR < bL) {
+            return 0;
+        } else if(bR <= aR) {
+            return bR - bL +1;
+        } else {
+            return aR - bL +1;
+        }
+
+    }
+
+    int gapDay(string t) {
+        int m = (t[0]-'0')*10 + t[1]-'0';
+        int d = (t[3]-'0')*10 + t[4]- '0';
+        int ret = 0;
+        for (int i = 0; i < m; ++i) {
+            ret += month[i];
+        }
+        return ret+d;
+
     }
 
 };
