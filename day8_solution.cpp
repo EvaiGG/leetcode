@@ -5,8 +5,17 @@
 //#include "string"
 #include "algorithm"
 #include "iostream"
+//#include ""
 using namespace std;
 
+struct TreeNode{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 class day8_solution{
 public:
     int smallestEvenMultiple(int n) {
@@ -61,6 +70,25 @@ public:
         }
         return ans;
 
+    }
+
+    /**
+     * dfs 1026
+     * @param root
+     * @return
+     */
+    int maxAncestorDiff(TreeNode *root){
+        return maxDiff(root, root->val, root->val);
+    }
+
+    int maxDiff(TreeNode *root, int mi, int ma) {
+        if (root == nullptr) return 0;
+        int diff = max(abs(root->val - mi), abs(root->val - ma));
+        mi = min(mi, root->val);
+        ma = max(ma, root->val);
+        diff = max(diff, maxDiff(root->left, mi, ma));
+        diff = max(diff, maxDiff(root->right, mi, ma));
+        return diff;
     }
 };
 
