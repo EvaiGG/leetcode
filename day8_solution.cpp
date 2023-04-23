@@ -5,6 +5,7 @@
 //#include "string"
 #include "algorithm"
 #include "iostream"
+#include "unordered_map"
 //#include ""
 using namespace std;
 
@@ -116,6 +117,31 @@ public:
             }
         }
         return dp[n];
+    }
+
+    /**
+     * 同构字符串 s t 长度相等
+     * @param s
+     * @param t
+     * @return
+     */
+    bool isIsomorphic(string s, string t) {
+        std::unordered_map<char, char> containerS;
+        std::unordered_map<char, char> containerT;
+        int n = s.size();
+
+        for (int i = 0; i < n; ++i) {
+            // 如果两个容器里面还没有这个映射 加入这个映射
+            if (containerS.count(s[i])== 0 && containerT.count(t[i])==0) {
+                containerS[s[i]] = t[i];
+                containerT[t[i]] = s[i];
+            } else {
+                if(containerS[s[i]]!= t[i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 };
 
