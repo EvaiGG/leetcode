@@ -68,6 +68,38 @@ public:
         }
         return true;
     }
+
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> res;
+        int n = nums.size();
+//        for (int left = 0; left < n; ++left) {
+//            string str;
+//            str += to_string(nums[left]);
+//            int temp = nums[left];
+//            int ans = temp;
+//            while(left < n -1 && temp+1 == nums[left+1]) {
+//                temp = nums[left+1];
+//                left++;
+//            }
+//            str+= (ans!=temp? "->"+ to_string(nums[left]): "");
+//            res.push_back(str);
+//        }
+//        return res;
+
+        int l =0, r= 1;
+        while(r < n) {
+            while(r < n && nums[r] - nums[r-1] == 1) r++;
+            if (r-l == 1) {
+                res.push_back(to_string(nums[l]));
+            } else {
+                string child = to_string(nums[l]) + "->" + to_string(nums[r-1]);
+                res.push_back(child);
+            }
+            l = r++;
+        }
+        if (nums.size() == r) res.push_back(to_string(nums[l]));
+        return res;
+    }
 };
 
 int main() {
@@ -85,6 +117,11 @@ int main() {
 //        cout << res << endl;
 //    }
 
-    int res =  solu.longestStrChain(v);
-    cout << res << endl;
+//    vector<int> nums{1,4,7,8,9,89, 90, 100,101,102,104};
+    vector<int> nums{1,4};
+    vector<string> res =  solu.summaryRanges(nums);
+    for (const auto &item : res){
+        cout << item << endl;
+    }
+
 }
