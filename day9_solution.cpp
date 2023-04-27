@@ -79,6 +79,56 @@ public:
         v[i] = v[j];
         v[j] = temp;
     }
+
+    long long minSumSquareDiff(vector<int>& nums1, vector<int>& nums2, int k1, int k2) {
+        int n = nums1.size(), k = k1+k2;
+        long ans = 0l, sum = 0L;
+        for (int i = 0; i < n; ++i) {
+            nums1[i] = abs(nums1[i] - nums2[i]);
+            sum += nums1[i];
+            ans += nums1[i]*nums1[i];
+        }
+        if (sum <= k) return 0; // 所有nums1[i]均可以为0；
+        sort(nums1.begin(),  nums1.end());
+        nums1.push_back(0);
+
+        for (int i = 0; ; ++i) {
+            long j = i+1, v= nums1[i], c = j*(v-nums1[j]);
+            ans -= v*v;
+            if (c < k){
+                k -= c;
+                continue;
+            }
+            v -= k/j;
+            return ans + k%j*(v-1)*(v-1) + (j-k%j)*v*v;
+        }
+    }
+
+    /**
+     * 返回 x - y 的最大距离 x/y 可在k1/k2得范围内移动
+     * @param x
+     * @param y
+     * @param k1
+     * @param k2
+     * @return
+     */
+    int maxDiff(int x, int y, int k1, int k2) {
+        if (x > y) {
+            int temp = x;
+            x = y;
+            y = temp;
+            int temp1 = k1;
+            k1 = k2;
+            k2 = temp1;
+        } else if(x == y) {
+            return k1 + k2;
+        }
+        return (y+k2) - (x - k1);
+    }
+
+    int maxSumTwoNoOverlap(vector<int>& nums, int firstLen, int secondLen) {
+
+    }
 };
 
 int main() {
