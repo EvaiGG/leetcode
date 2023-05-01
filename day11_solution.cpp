@@ -7,6 +7,9 @@
 #include "iostream"
 #include "algorithm"
 #include "unordered_set"
+#include "vector"
+#include "unordered_map"
+#include "algorithm"
 
 class day11_solution {
 
@@ -56,6 +59,29 @@ public:
             charCount[i]++;
         }
         return false;
+    }
+
+
+    // 1376
+    int numOfMinutes(int n, int headID, std::vector<int>& manager, std::vector<int>& informTime) {
+
+        // 领导与下属之间的有向图
+        std::unordered_map<int , std::vector<int>> employers;
+        for (int i = 0; i < manager.size(); ++i) {
+            employers[manager[i]].emplace_back(i);
+        }
+
+        std::function<int(int)> dfs = [&](int employers_id) ->int {
+            int res = 0;
+
+            // 找到代通知员工中通知时长最大的员工
+            for (const auto &item : employers[employers_id]){
+                res = std::max(res, dfs(item));
+            }
+            return informTime[employers_id] + res;
+        };
+
+        return dfs(headID);
     }
 };
 
