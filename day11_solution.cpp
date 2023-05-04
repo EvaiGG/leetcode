@@ -10,6 +10,8 @@
 #include "vector"
 #include "unordered_map"
 #include "algorithm"
+#include <cmath>
+
 
 class day11_solution {
 
@@ -96,12 +98,21 @@ public:
             n /=5;
         return n == 1;
     }
+
+    bool isPowerTwo(int n) {
+        if(n <= 0) return false;
+        const double eps = 1e-10;
+        double c = std::log(n)/std::log(2);
+        return  c - (int) c < eps;
+    }
 };
 
 int main() {
     day11_solution solu;
 
-    std::string str = "aazz";
-    bool res =  solu.equalFrequency(str);
-    std::cout << res << std::endl;
+    int tds = 64;
+//    double c = log(8)/log(2);
+    double c = (std::log(tds)/std::log(2));
+    double eps = 1e-6;
+    solu.isPowerTwo(tds);
 }
