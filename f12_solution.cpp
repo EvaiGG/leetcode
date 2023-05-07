@@ -38,6 +38,25 @@ public:
         if(frogNum>0) return -1;
         return res;
     }
+
+
+
+    int numPairsDivisibleBy60(vector<int>& time) {
+        unordered_map<int, int> m(60);
+        for (const auto &item : time)
+            m[item%60]++;
+
+        int res = 0;
+        // 余数为0 的歌曲 与余数为0 的歌曲组队 ，除了自身
+        res += (long long)m[0]*(m[0]-1)/2;
+        // 余数30歌曲同上
+        res += (long long)m[30]*(m[30]-1)/2;
+        // 1-29 匹配31-59
+        for (int i = 1; i < 30; ++i) {
+            res += m[i]*m[60-i];
+        }
+        return (int)res;
+    }
 };
 
 int main() {
