@@ -2,6 +2,7 @@
 #include "iostream"
 #include "unordered_map"
 #include "vector"
+#include "stack"
 using namespace std;
 
 class f12_solution{
@@ -57,8 +58,43 @@ public:
         }
         return (int)res;
     }
+
+
+    vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
+        vector<int> ans;
+        for (int i = arr1.size() - 1, j = arr2.size() - 1, c = 0; i >= 0 || j >= 0 || c; i--, j--) {
+            int a = i >= 0 ? arr1[i] : 0;
+            int b = j >= 0 ? arr2[j] : 0;
+            int x = a + b + c;
+            if (x >= 2) {
+                x -= 2;
+                c = -1;
+            }
+            else if (x == -1) {
+                x = 1;
+                c = 1;
+            }
+            else {
+                c = 0;
+            }
+            ans.push_back(x);
+        }
+        // vector.back()返回最后一个元素， end返回最后一个内容元素后边的结尾元素 例如`\0`
+        // !ans.back()  将会删除掉结尾多余的0元素
+        while (ans.size() > 1 && !ans.back()) {
+            ans.pop_back();
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
 };
 
 int main() {
+    vector<int> arr1{1,1,1,1,1};
+    vector<int> arr2{1,0,1};
 
+    vector<int> ans(5,0);
+
+    f12_solution solu;
+    ans = solu.addNegabinary(arr1, arr2);
 }
