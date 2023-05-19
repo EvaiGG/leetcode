@@ -3,6 +3,8 @@
 #include "unordered_map"
 #include "vector"
 #include "stack"
+#include "unordered_set"
+
 using namespace std;
 
 class f12_solution{
@@ -86,6 +88,34 @@ public:
         }
         reverse(ans.begin(), ans.end());
         return ans;
+    }
+
+    /**
+     * 1079_dfs
+     * @param tiles
+     * @return
+     */
+    int numTilePossibilities(std::string tiles) {
+        unordered_map<char, int> alpha_map;
+        unordered_set<char> tile;
+        for (const auto &item : tiles){
+            alpha_map[item] ++;
+            tile.insert(item);
+        }
+        return numDfs(alpha_map, tile, tiles.size())-1;
+    }
+
+    int numDfs(unordered_map<char, int> &count, unordered_set<char> &tile, int i ) {
+        if (i == 0) return 1;
+        int res = 1;
+        for (const auto &item : tile){
+            if (count[item] >0) {
+                count[item] --;
+                res += numDfs(count, tile, i-1);
+                count[item] ++;
+            }
+        }
+        return res;
     }
 };
 
