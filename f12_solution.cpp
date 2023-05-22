@@ -178,6 +178,65 @@ public:
         }
         return isBST(root->left) && isBST(root->right);
     }
+
+    /**
+     * 升级x次 蓄水y次 y(bucket[i]+x)>=vat[i]
+     * @param bucket 第n个水缸对应水桶的容积
+     * @param vat 第n个水缸最少蓄水量
+     * @return
+     */
+    int storeWater(vector<int>& bucket, vector<int>& vat) {
+        int n = bucket.size();
+        int maxk = *std::max_element(vat.begin(),  vat.end());
+        if (maxk == 0) return 0;
+        int res = INT_MAX;
+        for (int k = 0; k <= maxk && k< res; ++k) {
+            int t = 0;
+            for (int i = 0; i < bucket.size(); ++i) {
+                t += max(0, (vat[i]+k-1)/k - bucket[i]);
+            }
+            res = min(res, t+k);
+        }
+        return res;
+    }
+
+    /**
+     * 1080 删除叶路径上的不足节点
+     * 对于node 如果所有root- leaf通过node的路径 节点和小于limit node就是不足节点，需要删除
+     * (SumChildPath + root.val >= limit) true
+     * @param root
+     * @param limit
+     * @return
+     */
+    TreeNode* sufficientSubset(TreeNode* root, int limit) {
+        bool res = isSubset(root, 0, limit);
+        return res? root: nullptr;
+    }
+
+    /**
+     * node节点下面是否存在不足节点?
+     *  1.当前节点是空 false
+     *  2.当前节点是叶子 计算累计和与limit关系
+     *  3.都不是，深度优先遍历当前节点左右节点 并根据结果 减枝
+     *
+     *  4.返回当前节点的结果；
+     * @param node
+     * @param sum 目前累加和
+     * @param limit
+     * @return
+     */
+    bool isSubset(TreeNode *node, int sum, int limit) {
+        if (!node) return false;
+        if (node->left == nullptr && node->right == nullptr) return node->val + sum >= limit;
+
+        bool nodeLeft=  isSubset(node->left, node->val + sum, limit);
+        bool nodeRight = isSubset(node->right, node->val + sum, limit);
+
+        if (!nodeLeft) node->left = nullptr;
+        if (!nodeRight) node->right = nullptr;
+
+        return nodeLeft || nodeRight;
+    }
 };
 
 int main() {
