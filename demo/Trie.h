@@ -27,5 +27,9 @@ public:
     bool startsWith(const std::string& prefix) ;
 };
 
+class ProcFunctionDemo {
+public:
+    int processFunction(int base, std::function<int(int ,int)> func, int val1, int val2);
+};
 
 #endif //LEETCODE_TRIE_H

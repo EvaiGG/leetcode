@@ -3,6 +3,7 @@
 //
 
 #include "Trie.h"
+#include <cmath>
 
 TrieNode::TrieNode() {
     this->isEndOfWord = false;
@@ -53,22 +54,35 @@ bool Trie::startsWith(const std::string &prefix) {
     return true;
 }
 
+int ProcFunctionDemo::processFunction(int base, std::function<int(int, int)> func, int val1, int val2) {
+    int res = func(val1, val2);
+    res = std::pow(base, res);
+    std::cout << res << std::endl;
+    return res;
+}
+
+int func(int val1, int val2) {
+    return  val1 * val2;
+}
 int main() {
-    Trie trie;
+//    Trie trie;
+//
+//    // 插入单词
+//    trie.insert("apple");
+//    trie.insert("banana");
+//    trie.insert("orange");
+//
+//    // 查找单词
+//    std::cout << "Search 'apple': " << (trie.search("apple") ? "Found" : "Not Found") << std::endl;
+//    std::cout << "Search 'banana': " << (trie.search("banana") ? "Found" : "Not Found") << std::endl;
+//    std::cout << "Search 'grape': " << (trie.search("grape") ? "Found" : "Not Found") << std::endl;
+//
+//    // 判断前缀
+//    std::cout << "Starts with 'app': " << (trie.startsWith("app") ? "Yes" : "No") << std::endl;
+//    std::cout << "Starts with 'ora': " << (trie.startsWith("ora") ? "Yes" : "No") << std::endl;
+//
+//    return 0;
 
-    // 插入单词
-    trie.insert("apple");
-    trie.insert("banana");
-    trie.insert("orange");
-
-    // 查找单词
-    std::cout << "Search 'apple': " << (trie.search("apple") ? "Found" : "Not Found") << std::endl;
-    std::cout << "Search 'banana': " << (trie.search("banana") ? "Found" : "Not Found") << std::endl;
-    std::cout << "Search 'grape': " << (trie.search("grape") ? "Found" : "Not Found") << std::endl;
-
-    // 判断前缀
-    std::cout << "Starts with 'app': " << (trie.startsWith("app") ? "Yes" : "No") << std::endl;
-    std::cout << "Starts with 'ora': " << (trie.startsWith("ora") ? "Yes" : "No") << std::endl;
-
-    return 0;
+    ProcFunctionDemo pfd;
+    pfd.processFunction(2,func, 3, 4);
 }
