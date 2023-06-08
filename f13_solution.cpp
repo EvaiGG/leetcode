@@ -32,6 +32,26 @@ public:
         }
         return  mice_2_eat;
     }
+
+    /**
+     * 双指针 滑动窗口
+     * @param nums
+     * @param k
+     * @return
+     */
+    int minimumDifference(vector<int>& nums, int k) {
+        sort(nums.begin(),  nums.end());
+        int n = nums.size();
+        int l = 0 ;
+        if(n == 1 || k == 1) return 0;
+
+        int currMin = 0x3f3f3f;
+        while( l < n - k  + 1) {
+            currMin = min(nums[l + k-1]- nums[l], currMin);
+            l ++;
+        }
+        return currMin;
+    }
 };
 
 
