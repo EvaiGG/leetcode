@@ -1,6 +1,9 @@
 #include <vector>
 #include <iostream>
 #include <numeric>
+#include <unordered_set>
+#include <set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -70,22 +73,51 @@ public:
 
         return maxV + maxS;
     }
+
+    /**
+     * 2475. 数组中不等三元组的数目
+
+     * @param nums
+     * @return
+     */
+    int unequalTriplets(vector<int>& nums) {
+        std::unordered_map<int,std::vector<int>> iMap; // 对于索引i 左边比他小的数的数量 右边比他大的数的数量
+        int n = nums.size();
+        int result = 0;
+        for (int i = 0; i < n - 2; ++i) {
+            for (int j = i+1; j < n-1; ++j) {
+                if (nums[i] != nums[j]) {
+                    for (int k = j+1; k < n; ++k) {
+                        if (nums[i] != nums[k] && nums[k] != nums[j] ) result ++;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
 };
 
 
 int main() {
 
     f14_solution solu;
-    auto res =  solu.combine(5,4);
-    for (const auto &vec: res) {
-        for (const auto &item: vec) {
-            cout << item << "\t";
-        }
-        cout << "\n";
-    }
-    vector<int> t({1});
-    vector<int> grumpy({0});
+//    auto res =  solu.combine(5,4);
+//    for (const auto &vec: res) {
+//        for (const auto &item: vec) {
+//            cout << item << "\t";
+//        }
+//        cout << "\n";
+//    }
+//    vector<int> t({1});
+//    vector<int> grumpy({0});
+//
+//    auto result = solu.maxSatisfied(t, grumpy, 1);
+//    cout << result << endl;
 
-    auto result = solu.maxSatisfied(t, grumpy, 1);
+    vector<int> t1({4,4,2,4,3});
+    vector<int> t2({1,1,1,1,1});
+
+    int result = solu.unequalTriplets(t1);
     cout << result << endl;
 }
