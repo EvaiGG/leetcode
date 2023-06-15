@@ -3,6 +3,7 @@
 #include <numeric>
 #include <unordered_set>
 #include <set>
+#include <stack>
 #include <unordered_map>
 
 using namespace std;
@@ -95,6 +96,53 @@ public:
         }
 
         return result;
+    }
+
+    /**
+     * 532.数组中的k-diff对数量 k-diff: 数组中两个索引对应元素绝对值为k 则构成一个k-diff 对
+     * @param nums
+     * @param k
+     * @return
+     */
+    int findPairs(vector<int>& nums, int k) {
+//        int n = nums.size();
+//        sort(nums.crbegin(),  nums.crend());
+//
+//        std::vector<int> dpStack;
+//        for (int i = n-1; i >1 ; --i) {
+//            if (nums[i] != nums[i-1]) {
+//                dpStack.push_back(nums[i] - nums[i-1]);
+//            }
+//        }
+//
+//        int z = static_cast<int>(dpStack.size());
+//        int res = 0;
+//        for (int i = 0; i < z; ++i) {
+//            int temp = 0;
+//            for (int j = i+1; j < z; ++j) {
+//                temp += dpStack[j];
+//                if(temp > k) {
+//                    break;
+//                } else if(temp == k) {
+//                    res +1;
+//                }
+//            }
+//        }
+//
+//        return res +1;
+        std::unordered_set<int> visited;
+        std::unordered_set<int> diff_arr;
+
+        for(const int &num: nums) {
+            if (visited.count(num-k))
+                diff_arr.emplace(num -k);
+            if(visited.count(num+k))
+                diff_arr.emplace(num);
+
+            visited.emplace(num);
+        }
+
+        return diff_arr.size();
     }
 };
 
