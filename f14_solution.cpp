@@ -19,6 +19,7 @@ public:
         dfs(0, 1, n, k);
         return res;
     }
+
     /**
      * 回溯所有的组合
      * @param begin [1,n] 子字符串开头的数字
@@ -48,7 +49,7 @@ public:
      * @param minutes 可控制老板连续minutes内 不生气
      * @return 客户最大满意量
      */
-    int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
+    int maxSatisfied(vector<int> &customers, vector<int> &grumpy, int minutes) {
         int maxS = 0;
         //
         for (int i = 0; i < customers.size(); ++i) {
@@ -82,15 +83,15 @@ public:
      * @param nums
      * @return
      */
-    int unequalTriplets(vector<int>& nums) {
-        std::unordered_map<int,std::vector<int>> iMap; // 对于索引i 左边比他小的数的数量 右边比他大的数的数量
+    int unequalTriplets(vector<int> &nums) {
+        std::unordered_map<int, std::vector<int>> iMap; // 对于索引i 左边比他小的数的数量 右边比他大的数的数量
         int n = nums.size();
         int result = 0;
         for (int i = 0; i < n - 2; ++i) {
-            for (int j = i+1; j < n-1; ++j) {
+            for (int j = i + 1; j < n - 1; ++j) {
                 if (nums[i] != nums[j]) {
-                    for (int k = j+1; k < n; ++k) {
-                        if (nums[i] != nums[k] && nums[k] != nums[j] ) result ++;
+                    for (int k = j + 1; k < n; ++k) {
+                        if (nums[i] != nums[k] && nums[k] != nums[j]) result++;
                     }
                 }
             }
@@ -105,7 +106,7 @@ public:
      * @param k
      * @return
      */
-    int findPairs(vector<int>& nums, int k) {
+    int findPairs(vector<int> &nums, int k) {
 //        int n = nums.size();
 //        sort(nums.crbegin(),  nums.crend());
 //
@@ -134,10 +135,10 @@ public:
         std::unordered_set<int> visited;
         std::unordered_set<int> diff_arr;
 
-        for(const int &num: nums) {
-            if (visited.count(num-k))
-                diff_arr.emplace(num -k);
-            if(visited.count(num+k))
+        for (const int &num: nums) {
+            if (visited.count(num - k))
+                diff_arr.emplace(num - k);
+            if (visited.count(num + k))
                 diff_arr.emplace(num);
 
             visited.emplace(num);
@@ -157,7 +158,7 @@ public:
         int m = grid.size();
         int n = grid[0].size();
 
-        function<bool(int, int)> dfs = [&](int x, int  y) -> bool {
+        function<bool(int, int)> dfs = [&](int x, int y) -> bool {
             if (x < 0 || y < 0 || x >= m || y >= n) {
                 return false;
             }
@@ -171,18 +172,70 @@ public:
             bool ret4 = dfs(x, y + 1);
             return ret1 && ret2 && ret3 && ret4;
         };
-        for(int i = 0; i < m ; i ++) {
+        for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; ++j) {
                 if (grid[i][j] == 0 && dfs(i, j)) {
-                    ans ++;
+                    ans++;
                 }
             }
         }
         return ans;
-        };
-    }
+    };
+
+
 };
 
+
+std::vector<int> build_next(const char* partern) {
+    std::vector<int> next;
+    next.push_back(0);
+
+    int prefix_len = 0; //  当前位置最大前缀长度
+    int i = 1;
+    while (i < strlen(partern)) {
+        if (partern[i] == partern[prefix_len]) {
+            prefix_len += 1;
+            next[i] = prefix_len;
+            i += 1;
+        } else {
+            if (prefix_len == 0) {
+                next[i] = 0;
+                i += 1;
+            } else {
+                prefix_len = next[prefix_len - 1];
+            }
+        }
+
+    }
+    return next;
+}
+
+/**
+ * KMP 匹配字符串
+ * @param pattern
+ * @param text
+ * @return
+ */
+int kmpSearch(const char* pattern, const char* text) {
+    int M = strlen(pattern);
+    int N = strlen(text);
+
+    int i = 0, j  = 0;
+    std::vector<int> next =  build_next(pattern);
+    while (i < N) {
+        if (text[i] == pattern[j]) {
+            i++, j++;
+        } else if (j > 0) {
+            j = next[j-1];
+        } else {
+            i+= 1;
+        }
+        if( j == M) return i-j;
+    }
+
+    return 0;
+
+}
 
 int main() {
 
@@ -200,9 +253,14 @@ int main() {
 //    auto result = solu.maxSatisfied(t, grumpy, 1);
 //    cout << result << endl;
 
-    vector<int> t1({4,4,2,4,3});
-    vector<int> t2({1,1,1,1,1});
+//    vector<int> t1({4, 4, 2, 4, 3});
+//    vector<int> t2({1, 1, 1, 1, 1});
+//
+//    int result = solu.unequalTriplets(t1);
+//    cout << result << endl;
 
-    int result = solu.unequalTriplets(t1);
-    cout << result << endl;
+    std::vector<int> res =  build_next("abcxabcdffffdffff");
+    for (const auto &item : res){
+        std::cout<< item << "-." ;
+    }
 }
